@@ -1,60 +1,34 @@
-package Sudoku;
-
-import java.io.*;
-import java.util.*;
-
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		
-		Sudoku sudoku = new Sudoku();
+		Sudoku sudoku = new Sudoku(9);
 		
-		Scanner textfile = new Scanner(new File("fileA.txt"));
+		int[][] problem1 = new int[][]{
+				{3, 0, 6, 5, 0, 8, 4, 0, 0},
+	            {5, 2, 0, 0, 0, 0, 0, 0, 0},
+	            {0, 8, 7, 0, 0, 0, 0, 3, 1},
+	            {0, 0, 3, 0, 1, 0, 0, 8, 0},
+	            {9, 0, 0, 8, 6, 3, 0, 0, 5},
+	            {0, 5, 0, 0, 9, 0, 6, 0, 0},
+	            {1, 3, 0, 0, 0, 0, 2, 5, 0},
+	            {0, 0, 0, 0, 0, 0, 0, 7, 4},
+	            {0, 0, 5, 2, 0, 6, 3, 0, 0}
+		};
 		
-		sudoku.write("Mychal Wilson");
-		sudoku.write("");
+		sudoku.insertFull(problem1);
+		//sudoku.display();
 		
-		for(int i = 1; i < 4; i++){
-			while(true){
-				String name = textfile.next();
-				String[] str = name.split(",");
-				int row = Integer.parseInt(str[0]);
-				int col = Integer.parseInt(str[1]);
-				int value = Integer.parseInt(str[2]);
-	
-				if(value == 0){
-					break;
-				}else{
-					sudoku.insert(row, col, value);
-				}
-			}
-			
-			String num = Integer.toString(i);
-			sudoku.write(num + ")");
-	
-			sudoku.start();
-			
-			if(sudoku.retry() == true){
-				sudoku.start();
-			}
-			
-			if(sudoku.retry() == true){
-				sudoku.start();
-			}
-			
-			if(sudoku.retry() == true){
-				System.out.println("No Solution");
-				sudoku.write("No Solution");
-				sudoku.write("");
-			}else{
-				sudoku.display();
-				sudoku.writedisplay();
-				sudoku.write("");
-			}
-			
-			System.out.println();
-			
-			sudoku.resetarray();
-		}	
+		try {
+			sudoku.solve(0, 0);
+		}
+		catch(Exception e)
+		{
+		}
+		
+		sudoku.display();
+
+		
 	}
+
 }
